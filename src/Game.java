@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Game {
@@ -46,23 +47,35 @@ public class Game {
         }
 
 
-    // 用戶輸入猜測字母，計算10次
-        public void guess(String as){
+    // 用戶輸入猜測字母
+        public void guess(String as)throws IOException {
             System.out.println("Guess the movie:"+as+">>"+as.replaceAll(".","_"));//提示訊息
-                            Scanner guessing = new Scanner(System.in);
-                if (guessing.hasNext()) {
-                    String str1 = guessing.next();
-                    System.out.println("输入的数据为：" + str1);
-                }
-                guessing.close();
+            System.out.print("Enter a char");
+            char i = (char) System.in.read();
+
+
+            System.out.print(i);
+
+
+
+            //Scanner guessing = new Scanner(System.in);
+                //if (guessing.hasNext()) {//hasNext()
+                  //  String str1 = guessing.next();//.next()
+                    //System.out.println("输入的数据为：" + str1);
+                //}
+                //guessing.close();
+
+
 
                 //System.out.println("You are guessing:"+ guessing);
-
 
         }
 
     //檢查猜中幾個字及位罝
         public boolean isGetOrNot () {
+          //char x = s.charAt(8) :將S字串裡的第8個字元設為X 字符
+          // jnd.indexOf('a'): 找出jnd字串中第1次a出現的位置
+          //if()
             return false;
         }
 
