@@ -1,16 +1,19 @@
 import java.io.File;
 import java.util.Scanner;
 
-public class Game {
+
+public class Game{
 
 // fileds:
-
-    private String title;//題目
+    public String title;//題目的名字
 
 // construct:建立遊戲
-        public Game() throws Exception{
+       // public Game() throws Exception{
 
-         }
+         //}
+// play:
+    public void play(){
+    }
 
 // method:制作題目
         public String getTheTitle() throws Exception {
@@ -38,8 +41,6 @@ public class Game {
             }
             return title;
         }
-
-
 
 }
 

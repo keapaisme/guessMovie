@@ -1,15 +1,17 @@
 import java.util.Scanner;
 
 public class GuessIO {
+
 //field:
 
-    private String guessChar;// 猜的字元
+    public String guessChar;// 猜的字元
     private boolean getOrNot;
     //private int freeSteps;//
     private String result;// 猜中的字元及位置
 
-//struct:
+    //struct:
     public GuessIO(){
+
 
     }
 //method:
@@ -24,8 +26,6 @@ public class GuessIO {
         }
         guessing.close();
 
-
-
     }
     //檢查猜中幾個字及位罝
     public boolean isGetOrNot () {
@@ -39,8 +39,8 @@ public class GuessIO {
 
     //main
     public static void main(String[] args)throws Exception{
-        Game xxx = new Game();
-        System.out.print(xxx.getTheTitle()+"This version need 2.09 sec");
+        Game yyy = new Game();
+
     }
 
 }
