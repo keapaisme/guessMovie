@@ -6,15 +6,15 @@ public class Game {
 // fileds:
     private String guessChar;// 猜的字元
     private boolean getOrNot;
-    //private int freeSteps;//
+    private int times;//猜的次數
     private String result;// 猜中的字元及位置
     private String title;//題目
 
 
 // counstruct:建立遊戲
-        public Game() throws Exception{
-          guess(getTheTitle());
-         }
+      Game() {
+          times = 0;
+      }
 
 // methes:
     // 制作題目
@@ -28,7 +28,6 @@ public class Game {
             File movieName = new File("movies.txt");
             Scanner input = new Scanner(movieName);
 
-
             // 依亂數取出一個電影名當題目
 
             int word = 0;
@@ -39,33 +38,32 @@ public class Game {
                 // for (X：Y組）即將Y裡的值 給X
                 for (String retval : line.split("\n")) {
                     noMoves[word] = retval;
-                    this.title = noMoves[movieIndexOf];
+                    title = noMoves[movieIndexOf];
                     word++;
                 }
             }
-            return this.title;
+            return title;
         }
 
 
     // 用戶輸入猜測字母，計算10次
         public void guess(String as){
             System.out.println("Guess the movie:"+as+">>"+as.replaceAll(".","_"));//提示訊息
-            Scanner guessing = new Scanner(System.in);
+                            Scanner guessing = new Scanner(System.in);
+                if (guessing.hasNext()) {
+                    String str1 = guessing.next();
+                    System.out.println("输入的数据为：" + str1);
+                }
+                guessing.close();
 
-            if (guessing.hasNext()) {
-                String str1 = guessing.next();
-                System.out.println("输入的数据为：" + str1);
-            }
-            guessing.close();
-
-            //System.out.println("You are guessing:"+ guessing);
+                //System.out.println("You are guessing:"+ guessing);
 
 
         }
 
     //檢查猜中幾個字及位罝
         public boolean isGetOrNot () {
-            return getOrNot;
+            return false;
         }
 
     //玩家互動訊息，在螢幕秀出結果與提示
@@ -76,7 +74,15 @@ public class Game {
     //main
         public static void main(String[] args)throws Exception{
            Game guessMovie = new Game();
+            guessMovie.guess(guessMovie.getTheTitle());
+            for(int i = 10; i>0 ; i--){
+
+                guessMovie.isGetOrNot();
+
             }
+
+        }
+
 
     }
 
