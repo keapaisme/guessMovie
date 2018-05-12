@@ -47,28 +47,28 @@ public class Game {
 
     // 用戶輸入猜測字母
     public void guess() {
-          //String guessLetter;
-            Scanner guessing = new Scanner(System.in);
-
-            prOut("Guess a letter:"+ letter);
-
-            if (guessing.hasNext("[A-Za-z]")) {
-                letter = guessing.next();
-                prOut("输入的字為：" + letter);
-                isGetOrNot();//str1
-            }else {
-                prOut("請輸入 英文字母");
-                guess();
-            }
-
+        prOut("You are guessing :" + guessTitle);
+        Scanner guessing = new Scanner(System.in);
+        prOut("Guess a letter:"+ letter);
+        if (guessing.hasNext("[A-Za-z]")) {
+            letter = guessing.next();
+            prOut("输入的字為：" + letter);
+            isGetOrNot();
+        }else {
+            prOut("請輸入 英文字母");
+            guess();
         }
+    }
 
     //檢查猜中字符及顯示位罝
     public void isGetOrNot () {
 
           if(title.indexOf(letter) >= 0){
-              prOut("You are guessing:------");
-              guessTitle = title + letter;
+//從這裡開始
+
+              //guessTitle = guessTitle.replace("-","t");
+              //guessTitle. = letter;
+
           }else {
               wrongLetter =  wrongLetter + letter +" ";
               times ++ ;
@@ -76,46 +76,36 @@ public class Game {
                   gameOver = true;
               }
           }
-          prOut("You are guessing:" + guessTitle);
+          //prOut("You are guessing:" + guessTitle);
           prOut("You have guessed ("+times+") wrong letters: "+ wrongLetter);
-
-        }
+    }
 
     //玩家互動訊息，在螢幕秀出結果與提示
     public void prOut (String message) {
           System.out.print(message+"\n");
-        }
+     }
 
     //main
     public static void main(String[] args)throws Exception{
           Game guessMovie = new Game();
           String exmeTitle = guessMovie.getTheTitle();
           guessMovie.guessTitle = exmeTitle.replaceAll(".","_");//提示訊息
-          System.out.print("You are guessing:" + guessMovie.guessTitle +"\n");
+          //System.out.print("You are guessing:" + guessMovie.guessTitle +"\n");
           //System.out.print("  you have 10 times can guess it!!\n");
           while( !guessMovie.gameOver ){
               guessMovie.guess();
           }
-      }
+    }
 
 }
 
 
 
 /*
-         prOut("字在第 "+ guessChar.indexOf(str1)+"個");
-            prOut(guessChar);
-            isGetOrNot(guessChar);
+
 char x = s.charAt(8) :將S字串裡的第8個字元設為X 字符
             // jnd.indexOf('a'): 找出jnd字串中第1次a出現的位置
-            //^[A-Za-z]+$
-            //if()
-            // guessChar = String.valueOf(System.in.read());
+
             //prOut("字在第 "+ guessChar.indexOf(str1)+"個");
-            // prOut(guessChar);
-            //isGetOrNot(guessChar);
-//char x = s.charAt(8) :將S字串裡的第8個字元設為X 字符
-            // jnd.indexOf('a'): 找出jnd字串中第1次a出現的位置
-            //^[A-Za-z]+$
-            //if()
+
  */
