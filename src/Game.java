@@ -1,15 +1,17 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.*;
+
+import static javafx.scene.input.KeyCode.Z;
 
 public class Game {
 
 // fileds:
     private String guessChar;// 猜的字元
-    private boolean getOrNot;
     private int times;//猜的次數
     private String result;// 猜中的字元及位置
-    private String title;//題目
+    public String title;//題目
 
 
 // counstruct:建立遊戲
@@ -48,49 +50,50 @@ public class Game {
 
 
     // 用戶輸入猜測字母
-        public void guess(String as)throws IOException {
-            System.out.println("Guess the movie:"+as+">>"+as.replaceAll(".","_"));//提示訊息
-            System.out.print("Enter a char");
-            char i = (char) System.in.read();
+        public void guess() {
+           // guessChar = String.valueOf(System.in.read());
+            //prOut("字在第 "+ guessChar.indexOf(str1)+"個");
+           // prOut(guessChar);
+            //isGetOrNot(guessChar);
+//char x = s.charAt(8) :將S字串裡的第8個字元設為X 字符
+            // jnd.indexOf('a'): 找出jnd字串中第1次a出現的位置
+            //^[A-Za-z]+$
+            //if()
+            Scanner guessing = new Scanner(System.in);
+            //Pattern pattern = Pattern.compile("[a-z][A-z]");
+            //Matcher matcher =pattern.matcher(str1);
+                    guessChar = guessing.next();//.next()
+                    prOut("输入的数据为：" + guessChar);
+      }
 
 
-            System.out.print(i);
-
-
-
-            //Scanner guessing = new Scanner(System.in);
-                //if (guessing.hasNext()) {//hasNext()
-                  //  String str1 = guessing.next();//.next()
-                    //System.out.println("输入的数据为：" + str1);
-                //}
-                //guessing.close();
-
-
-
-                //System.out.println("You are guessing:"+ guessing);
-
-        }
-
-    //檢查猜中幾個字及位罝
-        public boolean isGetOrNot () {
-          //char x = s.charAt(8) :將S字串裡的第8個字元設為X 字符
-          // jnd.indexOf('a'): 找出jnd字串中第1次a出現的位置
-          //if()
-            return false;
+    //檢查猜中字符及位罝
+        public void isGetOrNot (String str1) {
+          if(title.indexOf(str1) >= 0){
+              prOut("有猜中");
+          }else {
+              prOut("沒有猜中");
+          }
         }
 
     //玩家互動訊息，在螢幕秀出結果與提示
-        public String checkWin () {
-            return result;
+        public void prOut (String message) {
+          System.out.print(message+"\n");
         }
 
     //main
         public static void main(String[] args)throws Exception{
            Game guessMovie = new Game();
-            guessMovie.guess(guessMovie.getTheTitle());
+           String exmeTitle = guessMovie.getTheTitle();
+            //guessMovie.guess(guessMovie.getTheTitle());
             for(int i = 10; i>0 ; i--){
+                System.out.print("REMAIN :"+i+" times!\n");
+                System.out.print("Guess the movie:"+exmeTitle+">>"+exmeTitle.replaceAll(".","_"));//提示訊息
+                System.out.print("Enter a char");
 
-                guessMovie.isGetOrNot();
+                guessMovie.guess();
+
+                //guessMovie.isGetOrNot();
 
             }
 
