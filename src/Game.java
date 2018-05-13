@@ -1,21 +1,26 @@
+
 import java.io.File;
 import java.util.Scanner;
 
 public class Game {
 
-// fileds:
+// fields:
     private String letter="";// 猜的字
     private String wrongLetter ="";
     private int times;//猜的次數
     private String result;// 猜中的字元及位置
     private String title;//題目
+    public int length;
     private String guessTitle;//
     private boolean gameOver;
+    private String [] as = new String[10];
 
 // construct:建立遊戲
     Game() {
-          times = 0;
-          gameOver = false;
+        times = 0;
+        gameOver = false;
+        //初始數組
+
       }
 
 // method:
@@ -41,13 +46,20 @@ public class Game {
                     title = noMoves[movieIndexOf];
                     word++;
                 }
+
             }
+
+            for (int i = 0; i < as.length; i++) {
+            as[i] = "-";
+            System.out.print(as[i]+"");
+        }
+            length = title.length();
             return title;
         }
 
-    // 用戶輸入猜測字母
+    // 用戶輸入猜測字母 5/14 不可改用 letter.matches("[a-z]") 因為要計算猜錯字
     public void guess() {
-        prOut("You are guessing :" + guessTitle);
+        //prOut("You are guessing :" + guessTitle);
         Scanner guessing = new Scanner(System.in);
         prOut("Guess a letter:"+ letter);
         if (guessing.hasNext("[A-Za-z]")) {
@@ -62,25 +74,27 @@ public class Game {
 
     //檢查猜中字符及顯示位罝
     public void isGetOrNot () {
+        int posit = title.indexOf(letter);
 
-          if(title.indexOf(letter) >= 0){
-//從這裡開始
+        if(title.indexOf(letter) >=0 ){
+            as[posit]=letter;
+            //prOut("as "+posit+ as[posit]);
+            for (int i = 0; i < as.length; i++) {
+                System.out.print(as[i]+"");
+            }
+        }else {
 
-              //guessTitle = guessTitle.replace("-","t");
-              //guessTitle. = letter;
-
-          }else {
-              wrongLetter =  wrongLetter + letter +" ";
-              times ++ ;
-              if ( times == 10 ){
-                  gameOver = true;
-              }
-          }
-          //prOut("You are guessing:" + guessTitle);
-          prOut("You have guessed ("+times+") wrong letters: "+ wrongLetter);
+            wrongLetter =  wrongLetter + letter +" ";
+            times ++ ;
+            if ( times == 10 ){
+                gameOver = true;
+            }
+        }
+        prOut("You have guessed ("+times+") wrong letters: "+ wrongLetter);
+        guessTitle = as.toString();
     }
 
-    //玩家互動訊息，在螢幕秀出結果與提示
+    //在螢幕秀出結果與提示
     public void prOut (String message) {
           System.out.print(message+"\n");
      }
@@ -89,9 +103,10 @@ public class Game {
     public static void main(String[] args)throws Exception{
           Game guessMovie = new Game();
           String exmeTitle = guessMovie.getTheTitle();
-          guessMovie.guessTitle = exmeTitle.replaceAll(".","_");//提示訊息
-          //System.out.print("You are guessing:" + guessMovie.guessTitle +"\n");
+       //   guessMovie.guessTitle = exmeTitle.replaceAll(".","_");//提示訊息
+         // System.out.print("You are guessing:" + guessMovie.guessTitle +"\n");
           //System.out.print("  you have 10 times can guess it!!\n");
+
           while( !guessMovie.gameOver ){
               guessMovie.guess();
           }
@@ -107,5 +122,23 @@ char x = s.charAt(8) :將S字串裡的第8個字元設為X 字符
             // jnd.indexOf('a'): 找出jnd字串中第1次a出現的位置
 
             //prOut("字在第 "+ guessChar.indexOf(str1)+"個");
+
+
+                //檢查猜中字符及顯示位罝
+    public void isGetOrNot () {
+        if(letter.matches("[a-z]")){
+            int posit = title.indexOf(letter);
+            as[posit]=letter;
+            prOut("as "+posit+ as[posit]);
+        }else {
+            wrongLetter =  wrongLetter + letter +" ";
+            times ++ ;
+            if ( times == 10 ){
+                gameOver = true;
+            }
+        }
+        //prOut("You are guessing:" + guessTitle);
+        prOut("You have guessed ("+times+") wrong letters: "+ wrongLetter);
+    }
 
  */
