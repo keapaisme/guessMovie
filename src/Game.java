@@ -5,18 +5,20 @@ import java.util.Scanner;
 public class Game {
 
 // fields:
-    private String letter="";// 猜的字
+    private String letter="";// 猜的字元
     private String wrongLetter ="";
     private int times;//猜的次數
-    private String result = "";// 猜中的字元及位置
+    private String theAnswer = "";// 猜中的字元及位置
     private String title;//題目
     private String guessTitle ="";//
     private boolean gameOver;
+    private String result="";
 
 // construct:建立遊戲
     Game() {
         times = 0;
         gameOver = false;
+
     }
 
 // method:
@@ -27,34 +29,28 @@ public class Game {
             Scanner scan = new Scanner(moviesFile);
             // 計算未知題目個數 i
             int i = 0;
-            String movie="";
+
+            String [] movies = new String[10];
             while (scan.hasNextLine()) {
-                movie = scan.nextLine(); //?為什麼一定要有這一行才能計算否則會無限加下去
-                movie = null;
-                i ++ ;
-            }
+               movies[i] = scan.nextLine(); //?為什麼一定要有這一行才能計算否則會無限加下去
 
-            //建題目數組 movies[]
-            String [] movies = new String[i];
-            Scanner sscan = new Scanner(moviesFile);
-
-            for( int j = 1 ; j <= i ; j++){
-               movies[j-1] = sscan.next();
+               i ++ ;
+               prOut(movies[i]+"i");
             }
 
             //依亂數取出一個電影名當題目
             title =  movies[(int) (Math.random() * i )];
-
-            for(i=0;i<= title.length();i++){guessTitle += "-";}
-            prOut(guessTitle);
-            guessTitle = "";
-
+            theAnswer = title.replaceAll("[a-zA-Z0-9]", "-");
+            prOut(theAnswer +":"+ title);
+            theAnswer="";
             return title;
         }
 
     // 用戶輸入猜測字母 5/14 不可改用 letter.matches("[a-z]") 因為要計算猜錯字
     public void guess() {
-        prOut("You are guessing :" + guessTitle);
+        result= theAnswer;
+        //prOut("You are guessing :" + guessTitle);
+        prOut("You are guessing :" + result);
         Scanner guessing = new Scanner(System.in);
         prOut("Guess a letter:"+ letter);
         if (guessing.hasNext("[A-Za-z]")) {
@@ -69,34 +65,36 @@ public class Game {
 
     //檢查猜中字符及顯示位罝:
     public void isGetOrNot () {
-    String test;
+        int posit = title.indexOf(letter);
+    if(posit >=0){
 
-        if(title.indexOf(letter) >=0 ){
-            for(int i=0;i< title.length();i++) {
-                test = title.charAt(i)+"";
-                if (letter.equals(test)) {
-                    prOut("oooooo"+test);
-                    result = test;
-                    guessTitle = guessTitle+result;
-                } else {
-                    prOut("xxxxx"+test);
-                    result = "-";
-                    guessTitle = guessTitle+result;
+        //prOut(title.indexOf(letter, 0)+" from 0");
+        for (int i = 0; i < title.length(); i++) {
+            //prOut(title.valueOf(letter));
+          //  prOut(title.indexOf(letter, i)+"");
+                        if( i == title.indexOf(letter,i )){theAnswer = theAnswer+letter;
+              //
+                        }else { theAnswer = theAnswer +"";
+                             }
+
+            //prOut("i=:" + i + " indwx of letter : " + title.indexOf(letter));
+
+        }prOut("after :" + theAnswer);
+
+            } else {
+                wrongLetter = wrongLetter + letter + " ";
+                times++;
+                if (times == 10) {
+                    gameOver = true;
+
                 }
-            }
-            prOut(guessTitle);
-            return;
 
-            }else{
-            wrongLetter = wrongLetter + letter + " ";
-            times++;
-            if (times == 10) {
-                gameOver = true;
             }
-        }
 
-                prOut("You have guessed (" + times + ") wrong letters: " + wrongLetter);
-                prOut(result);
+
+        prOut("You have guessed (" + times + ") wrong letters: " + wrongLetter);
+        //guessTitle = as.toString();
+        result = theAnswer;
 
     }
 
@@ -109,15 +107,10 @@ public class Game {
     public static void main(String[] args)throws Exception{
           Game guessMovie = new Game();
           guessMovie.getTheTitle();
-       //   guessMovie.guessTitle = exmeTitle.replaceAll(".","_");//提示訊息
-         // System.out.print("You are guessing:" + guessMovie.guessTitle +"\n");
-          //System.out.print("  you have 10 times can guess it!!\n");
-
           while( !guessMovie.gameOver ){
               guessMovie.guess();
           }
     }
-
 }
 
 
@@ -126,7 +119,7 @@ public class Game {
 //  2. title 檢測 重複字元並正確顯示
 //  3. 考慮題目有空格的做法
 //  4. 統一參數名稱，並精簡
-//  5. 將儲存猜字的數組 as 加一個題目出了後去尾巴的動作
+//  5. 將儲存猜字的數組 as 加一個題目出了後去尾巴的動作[取消]
 //  6. 玩家重複猜的字應不要計算，要提醒
 //  7. 檢查輸入enter無KEY字元要提醒
 //  8.
