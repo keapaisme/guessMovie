@@ -37,6 +37,9 @@ public class Game {
             result = title.replaceAll("[a-zA-Z0-9]", "-");
             //將題目字串 title 存成 數組 titleWordArray
             guessWordArray = result.toCharArray();
+            prOut(title+"  title length  ="+title.length());
+        prOut(result+"  result length  ="+result.length());
+        prOut(guessWordArray+"  guessWordArray length  ="+guessWordArray.length);
         }
 
     // 用戶輸入猜測字母 5/14 不可改用 letter.matches("[a-z]") 因為要計算猜錯字
@@ -55,16 +58,14 @@ public class Game {
     }
 
     //檢查猜中字符及顯示位罝:
-    public void gotIt () {if(title.indexOf(letter)>= 0){
+    public void gotIt () {
+        if(title.indexOf(letter)>= 0){
         int x = 0;
-        while ( x < title.length()-1 ){
+        while ( x <= title.length()-1 ){
             if (title.startsWith(letter,x)){
                 guessWordArray[x]= letter.charAt(0);
-
             }x++;
         }
-        prOut( guessWordArray[x]+" = result "+x+": "+title+", result :");
-
             } else {
                 wrongLetter = wrongLetter + letter + " ";
                 times++;
