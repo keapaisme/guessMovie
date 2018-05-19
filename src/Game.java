@@ -5,90 +5,79 @@ import java.util.Scanner;
 public class Game {
 
 // fields:
-    private String letter="";// 猜的字元
-    private String wrongLetter ="";
+    private String letter;// 猜的字元
+    private String wrongLetter ="";//玩家猜錯的字元
     private int times;//猜的次數
     private String theAnswer = "";// 猜中的字元及位置
     private String title;//題目
     private String guessTitle ="";//
     private boolean gameOver;
-    private String result="";
-
+    private String result="";//儲存玩家猜中的字
+    private char [] guessWordArray = {};
 // construct:建立遊戲
     Game() {
         times = 0;
         gameOver = false;
-
     }
-
 // method:
     // 制作題目:讀入電影檔Txt，計算未知題目個數 i，建題目數組 movies[]，依亂數取出一個電影名當題目 title
-    public  String getTheTitle() throws Exception {
+    public  void getTheTitle() throws Exception {
             // 讀入電影檔
             File moviesFile = new File("movies.txt");
             Scanner scan = new Scanner(moviesFile);
             // 計算未知題目個數 i
             int i = 0;
-
             String [] movies = new String[10];
             while (scan.hasNextLine()) {
                movies[i] = scan.nextLine(); //?為什麼一定要有這一行才能計算否則會無限加下去
                i ++ ;
-               //prOut(movies[i]+"i");
             }
-
             //依亂數取出一個電影名當題目
             title =  movies[(int) (Math.random() * i )];
-            theAnswer = title.replaceAll("[a-zA-Z0-9]", "-");
-
-            char [] ag2 = title.toCharArray();
-            prOut("數組 》》字串Title >>  ："+String.valueOf(title.toCharArray()));
-prOut(ag2+" = ag2[] ");
-ag2 [5] = 'A';
-        prOut(String.valueOf(ag2));
-
-        prOut(theAnswer +":"+ title);
-            theAnswer="";
-            return title;
+            result = title.replaceAll("[a-zA-Z0-9]", "-");
+            //將題目字串 title 存成 數組 titleWordArray
+            guessWordArray = result.toCharArray();
         }
 
     // 用戶輸入猜測字母 5/14 不可改用 letter.matches("[a-z]") 因為要計算猜錯字
     public void guess() {
-        result= theAnswer;
-        //prOut("You are guessing :" + guessTitle);
-        prOut("You are guessing :" + result);
+        prOut("You are guessing :" + String.valueOf(guessWordArray));
         Scanner guessing = new Scanner(System.in);
-        prOut("Guess a letter:"+ letter);
+        prOut("Guess a letter:");
         if (guessing.hasNext("[A-Za-z]")) {
             letter = guessing.next();
             prOut("输入的字為：" + letter);
-            isGetOrNot();
+            gotIt();
         }else {
-            prOut("請輸入 英文字母");
+            prOut("請輸入 單一英文字母");
             guess();
         }
     }
 
     //檢查猜中字符及顯示位罝:
-    public void isGetOrNot () {
+    public void gotIt () {if(title.indexOf(letter)>= 0){
+        int x = 0;
+        while ( x < title.length()-1 ){
+            if (title.startsWith(letter,x)){
+                guessWordArray[x]= letter.charAt(0);
 
-    if(title.indexOf(letter) >= 0){
-
+            }x++;
+        }
+        prOut( guessWordArray[x]+" = result "+x+": "+title+", result :");
 
             } else {
                 wrongLetter = wrongLetter + letter + " ";
                 times++;
                 if (times == 10) {
                     gameOver = true;
-
                 }
-
             }
 
 
         prOut("You have guessed (" + times + ") wrong letters: " + wrongLetter);
         //guessTitle = as.toString();
-        result = theAnswer;
+        //result = theAnswer;
+        //return theAnswer;
 
     }
 
@@ -118,3 +107,7 @@ ag2 [5] = 'A';
 //  7. 檢查輸入enter無KEY字元要提醒
 //  8.
 */
+/*
+//將題目字串 title 存成 數組 titleWordArray
+            char [] titleWordArray = title.toCharArray();
+ */
