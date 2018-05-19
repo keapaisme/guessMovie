@@ -10,15 +10,16 @@ public class Game {
     private int times;//猜的次數
     private String theAnswer = "";// 猜中的字元及位置
     private String title;//題目
-    private String guessTitle ="";//
     private boolean gameOver;
     private String result="";//儲存玩家猜中的字
     private char [] guessWordArray = {};
+
 // construct:建立遊戲
     Game() {
         times = 0;
         gameOver = false;
     }
+
 // method:
     // 制作題目:讀入電影檔Txt，計算未知題目個數 i，建題目數組 movies[]，依亂數取出一個電影名當題目 title
     public  void getTheTitle() throws Exception {
@@ -37,10 +38,7 @@ public class Game {
             result = title.replaceAll("[a-zA-Z0-9]", "-");
             //將題目字串 title 存成 數組 titleWordArray
             guessWordArray = result.toCharArray();
-            prOut(title+"  title length  ="+title.length());
-        prOut(result+"  result length  ="+result.length());
-        prOut(guessWordArray+"  guessWordArray length  ="+guessWordArray.length);
-        }
+    }
 
     // 用戶輸入猜測字母 5/14 不可改用 letter.matches("[a-z]") 因為要計算猜錯字
     public void guess() {
@@ -64,7 +62,8 @@ public class Game {
         while ( x <= title.length()-1 ){
             if (title.startsWith(letter,x)){
                 guessWordArray[x]= letter.charAt(0);
-            }x++;
+            }
+            x++;
         }
             } else {
                 wrongLetter = wrongLetter + letter + " ";
@@ -73,13 +72,7 @@ public class Game {
                     gameOver = true;
                 }
             }
-
-
         prOut("You have guessed (" + times + ") wrong letters: " + wrongLetter);
-        //guessTitle = as.toString();
-        //result = theAnswer;
-        //return theAnswer;
-
     }
 
     //在螢幕秀出結果與提示
@@ -87,7 +80,7 @@ public class Game {
           System.out.print(message+"\n");
      }
 
-    //main
+//main
     public static void main(String[] args)throws Exception{
           Game guessMovie = new Game();
           guessMovie.getTheTitle();
@@ -108,7 +101,3 @@ public class Game {
 //  7. 檢查輸入enter無KEY字元要提醒
 //  8.
 */
-/*
-//將題目字串 title 存成 數組 titleWordArray
-            char [] titleWordArray = title.toCharArray();
- */
