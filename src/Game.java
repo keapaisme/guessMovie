@@ -33,15 +33,21 @@ public class Game {
             String [] movies = new String[10];
             while (scan.hasNextLine()) {
                movies[i] = scan.nextLine(); //?為什麼一定要有這一行才能計算否則會無限加下去
-
                i ++ ;
-               prOut(movies[i]+"i");
+               //prOut(movies[i]+"i");
             }
 
             //依亂數取出一個電影名當題目
             title =  movies[(int) (Math.random() * i )];
             theAnswer = title.replaceAll("[a-zA-Z0-9]", "-");
-            prOut(theAnswer +":"+ title);
+
+            char [] ag2 = title.toCharArray();
+            prOut("數組 》》字串Title >>  ："+String.valueOf(title.toCharArray()));
+prOut(ag2+" = ag2[] ");
+ag2 [5] = 'A';
+        prOut(String.valueOf(ag2));
+
+        prOut(theAnswer +":"+ title);
             theAnswer="";
             return title;
         }
@@ -65,21 +71,9 @@ public class Game {
 
     //檢查猜中字符及顯示位罝:
     public void isGetOrNot () {
-        int posit = title.indexOf(letter);
-    if(posit >=0){
 
-        //prOut(title.indexOf(letter, 0)+" from 0");
-        for (int i = 0; i < title.length(); i++) {
-            //prOut(title.valueOf(letter));
-          //  prOut(title.indexOf(letter, i)+"");
-                        if( i == title.indexOf(letter,i )){theAnswer = theAnswer+letter;
-              //
-                        }else { theAnswer = theAnswer +"";
-                             }
+    if(title.indexOf(letter) >= 0){
 
-            //prOut("i=:" + i + " indwx of letter : " + title.indexOf(letter));
-
-        }prOut("after :" + theAnswer);
 
             } else {
                 wrongLetter = wrongLetter + letter + " ";
