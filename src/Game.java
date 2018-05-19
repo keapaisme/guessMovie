@@ -8,7 +8,7 @@ public class Game {
     private String letter;// 猜的字元
     private String wrongLetter ="";//玩家猜錯的字元
     private int times;//猜的次數
-    private String theAnswer = "";// 猜中的字元及位置
+    private int count = 0;// 題目總數
     private String title;//題目
     private boolean gameOver;
     private String result="";//儲存玩家猜中的字
@@ -26,16 +26,19 @@ public class Game {
             // 讀入電影檔
             File moviesFile = new File("movies.txt");
             Scanner scan = new Scanner(moviesFile);
-            // 計算未知題目個數 i
-            int i = 0;
-            String [] movies = new String[10];
-            while (scan.hasNextLine()) {
-               movies[i] = scan.nextLine(); //?為什麼一定要有這一行才能計算否則會無限加下去
-               i ++ ;
+
+            // 計算題目個數
+            String movNum ="";
+            while(scan.hasNextLine()){
+                count++;
+                movNum = movNum+scan.nextLine()+"-";
             }
+            String [] movies = new String[count];
+            movies = movNum.split("-");
+
             //依亂數取出一個電影名當題目
-            title =  movies[(int) (Math.random() * i )];
-            result = title.replaceAll("[a-zA-Z0-9]", "-");
+            title =  movies[(int) (Math.random() * count )];
+            result = title.replaceAll("[a-zA-Z]", "-");
             //將題目字串 title 存成 數組 titleWordArray
             guessWordArray = result.toCharArray();
     }
@@ -43,6 +46,12 @@ public class Game {
     // 用戶輸入猜測字母 5/14 不可改用 letter.matches("[a-z]") 因為要計算猜錯字
     public void guess() {
         prOut("You are guessing :" + String.valueOf(guessWordArray));
+        //prOut("r :"+result+", t:"+title);//測試用要刪掉
+        if((String.valueOf(guessWordArray)).equals(title)){
+            prOut("******* you win ********");
+            gameOver = true;
+            return;
+        }
         Scanner guessing = new Scanner(System.in);
         prOut("Guess a letter:");
         if (guessing.hasNext("[A-Za-z]")) {
@@ -100,4 +109,11 @@ public class Game {
 //  6. 玩家重複猜的字應不要計算，要提醒
 //  7. 檢查輸入enter無KEY字元要提醒
 //  8.
+完成依題目大小取亂數
+判斷猜對
+
+要做
+1，符合 project 輸出要求
+2，拆成兩個類
+3，寫說明文件
 */
