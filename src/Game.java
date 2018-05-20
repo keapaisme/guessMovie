@@ -13,16 +13,16 @@ import java.util.Scanner;
 public class Game {
 // fields:
     private String letter;// 猜的字元
-    private String wrongLetter ="";//玩家猜錯的字元
-    private int times;//猜的次數
+    private String wrongLetter ="";//猜錯的字元
+    private int wrongTimes;//猜的次數
     private String title;//題目
     private boolean gameOver;//遊戲是否結束
     private String result="";//儲存玩家猜中的字
     private char [] guessWordArray = {};//存放最新猜測結果
 
-// construct:建立遊戲
+// construct:
     Game() {
-        times = 0;
+        wrongTimes = 0;
         gameOver = false;
     }
 
@@ -37,7 +37,6 @@ public class Game {
             // 讀入電影檔
             File moviesFile = new File("movies.txt");
             Scanner scan = new Scanner(moviesFile);
-
             // 計算題目個數
             String movNum ="";
             int count = 0;
@@ -47,7 +46,6 @@ public class Game {
             }
             String [] movies = new String[count];
             movies = movNum.split("-");
-
             //依亂數取出一個電影名當題目
             title =  movies[(int) (Math.random() * count )];
             result = title.replaceAll("[a-zA-Z]", "_");
@@ -61,9 +59,13 @@ public class Game {
      */
     public void guess() {
         prOut("You are guessing :" + String.valueOf(guessWordArray));
-        prOut("You have guessed (" + times + ") wrong letters: " + wrongLetter);
+        if (wrongTimes == 10) {
+            prOut ("You Lose!");
+            gameOver = true;
+        }
+        prOut("You have guessed (" + wrongTimes + ") wrong letters: " + wrongLetter);
         if((String.valueOf(guessWordArray)).equals(title)){
-            prOut("******* you win ********");
+            prOut("You Win!");
             gameOver = true;
             return;
         }
@@ -92,10 +94,8 @@ public class Game {
         }
             } else {
                 wrongLetter = wrongLetter + letter + " ";
-                times++;
-                if (times == 10) {
-                    gameOver = true;
-                }
+                wrongTimes++;
+
             }
     }
     /**
