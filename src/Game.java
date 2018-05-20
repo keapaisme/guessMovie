@@ -73,7 +73,6 @@ public class Game {
         prOut("Guess a letter:");
         if (guessing.hasNext("[A-Za-z]")) {
             letter = guessing.next();
-            prOut("输入的字為：" + letter);
             gotIt();
         }else {
             prOut("請輸入 單一英文字母");
